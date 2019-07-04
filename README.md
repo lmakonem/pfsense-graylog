@@ -22,7 +22,7 @@ This content pack includes Input rsyslog type , extractors, lookup tables, Data 
 
 and then we cloned it
 
-`#git clone https://github.com/opc40772/pfsense-graylog`
+`#git clone https://github.com/devopstales/pfsense-graylog`
 
 We will locate the CSV data of the lookup tables to later convert the number of ports to services name. From the git that you just cloned, we selected the service-names-port-numbers.csv file and copied it to /etc/graylog/server.
 
@@ -50,12 +50,6 @@ And we apply it
 We edit the stream of pfsense in Streams to associate the index that we created initially. We mark that it eliminates the coincidences for the default stream 'All message' so that only it stores it in the index of pfsense.
 
 ![Content Pack](https://www.sysadminsdecuba.com/wp-content/uploads/2018/04/Graylog_-_Streams_-_2018-04-04_20.52.28.png)
-
-We create a rule for the logs to be stored in the associated index
-
-![Content Pack](https://www.sysadminsdecuba.com/wp-content/uploads/2018/04/Pfsense-stream-rule.png)
-
-In this case, we will relate it to the source field, which in this case contains the filterlog value.
 
 # Cerebro
 
@@ -91,21 +85,7 @@ Pipelines
 
 The pfsense logs that arrive at graylog, the date and the time are not sent to it, storing in the timestamp field the time they arrive at the graylog itself and this date and time is in UTC format so we must modify it so that it does not there are interpretation problems in grafana time format when displaying them.
 
-We proceed to create the pipeline for squid then in System/Pipelines
-
-![Pipeline](https://www.sysadminsdecuba.com/wp-content/uploads/2018/03/Graylog_-_Pipelines_-_2018-03-14_20.12.00-1024x206.png)
-
-We save then, we edit it and then we associate the stream that we created previously to be shown so that only this pipeline is applied to it.
-
-![Pipeline](https://www.sysadminsdecuba.com/wp-content/uploads/2018/04/Graylog_-_Pipeline_Pfsense_Time_stamp_-_2018-04-04_21.58.45.png)
-
-We will create our first and only rule for pfsense in Manage rules and then Create rule
-
-![Pipeline](https://www.sysadminsdecuba.com/wp-content/uploads/2018/03/Graylog_-_New_pipeline_rule_-_2018-03-14_20.30.22-1024x426.png)
-
-We give a brief description of what this rule will do and also the source of the rule.
-
-![Pipeline](https://www.sysadminsdecuba.com/wp-content/uploads/2018/04/Pipeline-rule-pfsense-1024x556.png)
+We need to edit the pipeline of pfsense then in System/Pipelines
 
 Source of the rule that makes the adjustment of the timestamp that we are going to use in grafana:
 
@@ -118,10 +98,6 @@ Source of the rule that makes the adjustment of the timestamp that we are going 
      let dest_timestamp = format_date(source_timestamp,"yyyy-MM-dd HH:mm:ss");
      set_field("real_timestamp", dest_timestamp);
     end
-
-We save the rule and again we go to Manage pipelines and edit the same modifying then Stage 0 associating the rule that we just created.
-
-![Pipeline](https://www.sysadminsdecuba.com/wp-content/uploads/2018/04/Graylog-pipeline_rule.png)
 
 We save and we have the pipeline ready to later receive the first logs.
 
