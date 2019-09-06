@@ -246,7 +246,7 @@
           "store_generic": {
             "match": "*",
             "mapping": {
-              "index": "not_analyzed"
+              "index": "true"
             }
           }
         }
