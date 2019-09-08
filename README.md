@@ -19,16 +19,23 @@ and with [cerebro](https://github.com/lmenezes/cerebro) we can check it
 Download and update the Geoip database
 
 wget -t0 -c http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+
 tar -xvf GeoLite2-City.tar.gz
+
 cp GeoLite2-City_*/GeoLite2-City.mmdb /etc/graylog/server
 
 systemctl start graylog-server.service
+
 Enable geoip database at System \ Imput > Configurations > Plugins > Geo-Location Processor > update Chane the order of the Message Processors Configuration
 
 AWS Instance Name Lookup
+
 Message Filter Chain
+
 Pipeline Processor
+
 GeoIP Resolver
+
 Enable geoip database
 
 # Content Pack
