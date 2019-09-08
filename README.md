@@ -16,6 +16,21 @@ and with [cerebro](https://github.com/lmenezes/cerebro) we can check it
 
 ![Indices](https://www.sysadminsdecuba.com/wp-content/uploads/2018/04/cerebrograylogpfsense_-_2018-03-05_19.27.59-1024x454.png)
 
+Download and update the Geoip database
+
+wget -t0 -c http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+tar -xvf GeoLite2-City.tar.gz
+cp GeoLite2-City_*/GeoLite2-City.mmdb /etc/graylog/server
+
+systemctl start graylog-server.service
+Enable geoip database at System \ Imput > Configurations > Plugins > Geo-Location Processor > update Chane the order of the Message Processors Configuration
+
+AWS Instance Name Lookup
+Message Filter Chain
+Pipeline Processor
+GeoIP Resolver
+Enable geoip database
+
 # Content Pack
 
 This content pack includes Input rsyslog type , extractors, lookup tables, Data adapters for lockup tables and Cache for lookup tables. To download these files we install git to clone the repository.
